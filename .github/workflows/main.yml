@@ -25,6 +25,7 @@ permissions:
 jobs:
   test-suite:
     uses: ./.github/workflows/multiple-test-suite.yml
+    secrets: inherit
   build-documentation:
     permissions:
       contents: write
