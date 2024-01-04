@@ -20,13 +20,15 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = ["beautifulsoup4","requests"]
 
 [project.urls]
 Documentation = "https://github.com/danoan/collins-dictionary-api-client#readme"
 Issues = "https://github.com/danoan/collins-dictionary-api-client"
 Source = "https://github.com/danoan/collins-dictionary-api-client"
 
+[project.scripts]
+collins-dictionary-api-client = "danoan.dictionaries.collins.cli.cli:main"
 
 # -------------------- build backend --------------------
 [tool.setuptools.packages.find]

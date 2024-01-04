@@ -1,19 +1,14 @@
-from enum import Enum
+from danoan.dictionaries.collins.core import model
 
 import requests
 
 
-class Language(Enum):
-    English = "english"
-
-    def __str__(self):
-        return self.value
-
-
-# ---------------- API Request ------------------
 def get_best_matching(
-    entrypoint: str, secret_key: str, language: Language, word: str, **kargs
+    entrypoint: str, secret_key: str, language: model.Language, word: str, **kargs
 ) -> requests.Response:
+    """
+    Get the first result found for the searched word.
+    """
     headers = {
         "Host": "localhost",
         "Accept": "application/xml",
@@ -26,8 +21,11 @@ def get_best_matching(
 
 
 def get_entry(
-    entrypoint: str, secret_key: str, language: Language, entry_id: str, **kargs
+    entrypoint: str, secret_key: str, language: model.Language, entry_id: str, **kargs
 ) -> requests.Response:
+    """
+    Return metadata corresponding to an entry id.
+    """
     headers = {
         "Host": "localhost",
         "Accept": "application/xml",
