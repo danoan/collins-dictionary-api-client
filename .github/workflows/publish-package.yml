@@ -1,0 +1,33 @@
+name: Publish package
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  release:
+    types: [published]
+
+jobs:
+  test-suite:
+    uses: ./.github/workflows/multiple-test-suite.yml
+  build-documentation:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/build-documentation.yml
+  build-package:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/build-package.yml
+    needs: [test-suite]
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build-package,build-documentation]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: sdist-artifact
+          path: ./dist/
+      - uses: pypa/gh-action-pypi-publish@v1.8.11
+        with:
+          repository_url: https://test.pypi.org/legacy/
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
