@@ -35,6 +35,48 @@ def entrypoint(pytestconfig):
     "language, word",
     [(model.Language.English, "legitim")],
 )
+def test_get_search(language, word, entrypoint, secret_key):
+    response = api.get_search(entrypoint, secret_key, language, word)
+    assert response.status_code == 200
+
+    xml_response = BeautifulSoup(response.text, "xml")
+
+    print(xml_response.find("dictionaryCode"))
+    print(xml_response.find("entryLabel"))
+
+    assert (
+        str(xml_response.find("dictionaryCode"))
+        == "<dictionaryCode>english</dictionaryCode>"
+    )
+    assert str(xml_response.find("entryLabel")) == "<entryLabel>legitim</entryLabel>"
+
+
+@pytest.mark.parametrize(
+    "language, word",
+    [(model.Language.English, "legitim")],
+)
+def test_get_did_you_mean(language, word, entrypoint, secret_key):
+    response = api.get_did_you_mean(entrypoint, secret_key, language, word)
+    assert response.status_code == 200
+
+    xml_response = BeautifulSoup(response.text, "xml")
+
+    print(xml_response.find("dictionaryCode"))
+    print(xml_response.find("suggestions"))
+    print(xml_response.find("suggestion"))
+
+    assert (
+        str(xml_response.find("dictionaryCode"))
+        == "<dictionaryCode>english</dictionaryCode>"
+    )
+    assert len(str(xml_response.find("suggestions"))) > 0
+    assert len(str(xml_response.find("suggestion"))) > 0
+
+
+@pytest.mark.parametrize(
+    "language, word",
+    [(model.Language.English, "legitim")],
+)
 def test_best_matching(language, word, entrypoint, secret_key):
     response = api.get_best_matching(entrypoint, secret_key, language, word)
     assert response.status_code == 200
@@ -69,3 +111,47 @@ def test_get_entry(language, entry_id, entrypoint, secret_key):
         == "<dictionaryCode>english</dictionaryCode>"
     )
     assert str(xml_response.find("entryLabel")) == "<entryLabel>legitim</entryLabel>"
+
+
+@pytest.mark.parametrize(
+    "language, entry_id",
+    [(model.Language.English, "happy_1")],
+)
+def test_get_pronunciation(language, entry_id, entrypoint, secret_key):
+    response = api.get_pronunciation(entrypoint, secret_key, language, entry_id)
+    assert response.status_code == 200
+
+    xml_response = BeautifulSoup(response.text, "xml")
+
+    print(xml_response.find("dictionaryCode"))
+    print(xml_response.find("pronunciations"))
+    print(xml_response.find("pronunciation"))
+
+    assert (
+        str(xml_response.find("dictionaryCode"))
+        == "<dictionaryCode>english</dictionaryCode>"
+    )
+    assert len(str(xml_response.find("pronunciations"))) > 0
+    assert len(str(xml_response.find("pronunciation"))) > 0
+
+
+@pytest.mark.parametrize(
+    "language, entry_id",
+    [(model.Language.English, "happy_1")],
+)
+def test_get_nearby_entries(language, entry_id, entrypoint, secret_key):
+    response = api.get_nearby_entries(entrypoint, secret_key, language, entry_id)
+    assert response.status_code == 200
+
+    xml_response = BeautifulSoup(response.text, "xml")
+
+    print(xml_response.find("dictionaryCode"))
+    print(xml_response.find("nearbyFollowingEntries"))
+    print(xml_response.find("nearbyEntry"))
+
+    assert (
+        str(xml_response.find("dictionaryCode"))
+        == "<dictionaryCode>english</dictionaryCode>"
+    )
+    assert len(str(xml_response.find("nearbyFollowingEntries"))) > 0
+    assert len(str(xml_response.find("nearbyEntry"))) > 0
