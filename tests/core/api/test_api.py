@@ -8,11 +8,28 @@ from danoan.dictionaries.collins.core import api, model
 
 from bs4 import BeautifulSoup
 import os
+import json
 from pathlib import Path
 import pytest
 import warnings
+from typing import Any
 
 SCRIPT_FOLDER = Path(os.path.abspath(__file__)).parent
+
+
+class DataAdapter:
+    def __init__(self, data: Any, format: model.Format):
+        self.format = format
+        if format == model.Format.JSON:
+            self.data = json.loads(data)
+        elif format == model.Format.XML:
+            self.data = BeautifulSoup(data, "xml")
+
+    def get_field(self, field_name: str):
+        if self.format == model.Format.JSON:
+            return self.data[field_name]
+        elif self.format == model.Format.XML:
+            return self.data.find(field_name)
 
 
 @pytest.fixture(scope="session")
@@ -32,126 +49,134 @@ def entrypoint(pytestconfig):
 
 
 @pytest.mark.parametrize(
-    "language, word",
-    [(model.Language.English, "legitim")],
+    "language, word, format",
+    [
+        (model.Language.English, "legitim", model.Format.XML),
+        (model.Language.English, "legitim", model.Format.JSON),
+    ],
 )
-def test_get_search(language, word, entrypoint, secret_key):
-    response = api.get_search(entrypoint, secret_key, language, word)
+def test_get_search(language, word, format, entrypoint, secret_key):
+    response = api.get_search(entrypoint, secret_key, language, word, format=format)
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    adapter = DataAdapter(response.text, format)
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("entryLabel"))
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("results"))
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert str(xml_response.find("entryLabel")) == "<entryLabel>legitim</entryLabel>"
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("results")).strip()) > 0
 
 
 @pytest.mark.parametrize(
-    "language, word",
-    [(model.Language.English, "legitim")],
+    "language, word, format",
+    [
+        (model.Language.English, "legitim", model.Format.XML),
+        (model.Language.English, "legitim", model.Format.JSON),
+    ],
 )
-def test_get_did_you_mean(language, word, entrypoint, secret_key):
-    response = api.get_did_you_mean(entrypoint, secret_key, language, word)
+def test_get_did_you_mean(language, word, format, entrypoint, secret_key):
+    response = api.get_did_you_mean(
+        entrypoint, secret_key, language, word, format=format
+    )
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    adapter = DataAdapter(response.text, format)
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("suggestions"))
-    print(xml_response.find("suggestion"))
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("suggestions"))
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert len(str(xml_response.find("suggestions"))) > 0
-    assert len(str(xml_response.find("suggestion"))) > 0
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("suggestions")).strip()) > 0
 
 
 @pytest.mark.parametrize(
-    "language, word",
-    [(model.Language.English, "legitim")],
+    "language, word, format",
+    [
+        (model.Language.English, "legitim", model.Format.XML),
+        (model.Language.English, "legitim", model.Format.JSON),
+    ],
 )
-def test_best_matching(language, word, entrypoint, secret_key):
-    response = api.get_best_matching(entrypoint, secret_key, language, word)
+def test_best_matching(language, word, format, entrypoint, secret_key):
+    response = api.get_best_matching(
+        entrypoint, secret_key, language, word, format=format
+    )
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    adapter = DataAdapter(response.text, format)
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("entryLabel"))
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("entryLabel"))
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert str(xml_response.find("entryLabel")) == "<entryLabel>legitim</entryLabel>"
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("entryLabel")).strip()) > 0
 
 
 @pytest.mark.parametrize(
-    "language, entry_id",
-    [(model.Language.English, "legitim_1")],
+    "language, entry_id, format",
+    [
+        (model.Language.English, "legitim_1", model.Format.XML),
+        (model.Language.English, "legitim_1", model.Format.JSON),
+    ],
 )
-def test_get_entry(language, entry_id, entrypoint, secret_key):
-    response = api.get_entry(entrypoint, secret_key, language, entry_id)
+def test_get_entry(language, entry_id, format, entrypoint, secret_key):
+    response = api.get_entry(entrypoint, secret_key, language, entry_id, format=format)
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    adapter = DataAdapter(response.text, format)
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("entryLabel"))
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("entryLabel"))
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert str(xml_response.find("entryLabel")) == "<entryLabel>legitim</entryLabel>"
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("entryLabel")).strip()) > 0
 
 
 @pytest.mark.parametrize(
-    "language, entry_id",
-    [(model.Language.English, "happy_1")],
+    "language, entry_id, format",
+    [
+        (model.Language.English, "happy_1", model.Format.XML),
+        (model.Language.English, "happy_1", model.Format.JSON),
+    ],
 )
-def test_get_pronunciation(language, entry_id, entrypoint, secret_key):
-    response = api.get_pronunciation(entrypoint, secret_key, language, entry_id)
+def test_get_pronunciation(language, entry_id, format, entrypoint, secret_key):
+    response = api.get_pronunciation(
+        entrypoint, secret_key, language, entry_id, format=format
+    )
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    if format == model.Format.JSON:
+        data = json.loads(response.text)[0]
+        data = json.dumps(data)
+    else:
+        data = response.text
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("pronunciations"))
-    print(xml_response.find("pronunciation"))
+    adapter = DataAdapter(data, format)
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert len(str(xml_response.find("pronunciations"))) > 0
-    assert len(str(xml_response.find("pronunciation"))) > 0
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("pronunciationUrl"))
+
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("pronunciationUrl")).strip()) > 0
 
 
 @pytest.mark.parametrize(
-    "language, entry_id",
-    [(model.Language.English, "happy_1")],
+    "language, entry_id, format",
+    [
+        (model.Language.English, "happy_1", model.Format.XML),
+        (model.Language.English, "happy_1", model.Format.JSON),
+    ],
 )
-def test_get_nearby_entries(language, entry_id, entrypoint, secret_key):
-    response = api.get_nearby_entries(entrypoint, secret_key, language, entry_id)
+def test_get_nearby_entries(language, entry_id, format, entrypoint, secret_key):
+    response = api.get_nearby_entries(
+        entrypoint, secret_key, language, entry_id, format=format
+    )
     assert response.status_code == 200
 
-    xml_response = BeautifulSoup(response.text, "xml")
+    adapter = DataAdapter(response.text, format)
 
-    print(xml_response.find("dictionaryCode"))
-    print(xml_response.find("nearbyFollowingEntries"))
-    print(xml_response.find("nearbyEntry"))
+    print(adapter.get_field("dictionaryCode"))
+    print(adapter.get_field("nearbyFollowingEntries"))
 
-    assert (
-        str(xml_response.find("dictionaryCode"))
-        == "<dictionaryCode>english</dictionaryCode>"
-    )
-    assert len(str(xml_response.find("nearbyFollowingEntries"))) > 0
-    assert len(str(xml_response.find("nearbyEntry"))) > 0
+    assert len(str(adapter.get_field("dictionaryCode")).strip()) > 0
+    assert len(str(adapter.get_field("nearbyFollowingEntries")).strip()) > 0

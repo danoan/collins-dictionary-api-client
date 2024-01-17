@@ -6,3 +6,11 @@ class Language(Enum):
 
     def __str__(self):
         return self.value
+
+
+class Format(Enum):
+    JSON = "json"
+    XML = "xml"
+
+    def __str__(self):
+        return self.value

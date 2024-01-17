@@ -27,6 +27,12 @@ def main():
         default=model.Language.English,
         help="Language of the dictionary.",
     )
+    parser.add_argument(
+        "--format",
+        default="json",
+        choices=[str(x) for x in model.Format],
+        help="Format of response.",
+    )
 
     subparsers = parser.add_subparsers()
 

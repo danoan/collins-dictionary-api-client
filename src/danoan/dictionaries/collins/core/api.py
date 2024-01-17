@@ -11,6 +11,7 @@ def get_search(
     word: str,
     page_size: int = 10,
     page_index: int = 1,
+    format: model.Format = model.Format.JSON,
     **kargs,
 ) -> requests.Response:
     """
@@ -18,7 +19,7 @@ def get_search(
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
     return requests.get(
@@ -33,6 +34,7 @@ def get_did_you_mean(
     language: model.Language,
     word: str,
     entry_number: int = 10,
+    format: model.Format = model.Format.JSON,
     **kargs,
 ) -> requests.Response:
     """
@@ -40,7 +42,7 @@ def get_did_you_mean(
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
     return requests.get(
@@ -50,31 +52,41 @@ def get_did_you_mean(
 
 
 def get_best_matching(
-    entrypoint: str, secret_key: str, language: model.Language, word: str, **kargs
+    entrypoint: str,
+    secret_key: str,
+    language: model.Language,
+    word: str,
+    format: model.Format = model.Format.JSON,
+    **kargs,
 ) -> requests.Response:
     """
     Get the first result found for the searched word.
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
     return requests.get(
-        f"{entrypoint}/dictionaries/{language.value}/search/first/?q={word}&format=xml",
+        f"{entrypoint}/dictionaries/{language.value}/search/first/?q={word}",
         headers=headers,
     )
 
 
 def get_entry(
-    entrypoint: str, secret_key: str, language: model.Language, entry_id: str, **kargs
+    entrypoint: str,
+    secret_key: str,
+    language: model.Language,
+    entry_id: str,
+    format: model.Format = model.Format.JSON,
+    **kargs,
 ) -> requests.Response:
     """
     Return metadata corresponding to an entry id.
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
     return requests.get(
@@ -89,6 +101,7 @@ def get_pronunciation(
     language: model.Language,
     entry_id: str,
     lang: Optional[model.Language] = None,
+    format: model.Format = model.Format.JSON,
     **kargs,
 ) -> requests.Response:
     """
@@ -98,7 +111,7 @@ def get_pronunciation(
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
 
@@ -120,6 +133,7 @@ def get_nearby_entries(
     language: model.Language,
     entry_id: str,
     entry_number: int = 10,
+    format: model.Format = model.Format.JSON,
     **kargs,
 ) -> requests.Response:
     """
@@ -127,7 +141,7 @@ def get_nearby_entries(
     """
     headers = {
         "Host": "localhost",
-        "Accept": "application/xml",
+        "Accept": f"application/{format}",
         "accessKey": secret_key,
     }
 
