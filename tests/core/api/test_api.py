@@ -55,8 +55,8 @@ def entrypoint(pytestconfig):
         (model.Language.English, "legitim", model.Format.JSON),
     ],
 )
-def test_get_search(language, word, format, entrypoint, secret_key):
-    response = api.get_search(entrypoint, secret_key, language, word, format=format)
+def test_search(language, word, format, entrypoint, secret_key):
+    response = api.search(entrypoint, secret_key, language, word, format=format)
     assert response.status_code == 200
 
     adapter = DataAdapter(response.text, format)
@@ -75,10 +75,8 @@ def test_get_search(language, word, format, entrypoint, secret_key):
         (model.Language.English, "legitim", model.Format.JSON),
     ],
 )
-def test_get_did_you_mean(language, word, format, entrypoint, secret_key):
-    response = api.get_did_you_mean(
-        entrypoint, secret_key, language, word, format=format
-    )
+def test_did_you_mean(language, word, format, entrypoint, secret_key):
+    response = api.did_you_mean(entrypoint, secret_key, language, word, format=format)
     assert response.status_code == 200
 
     adapter = DataAdapter(response.text, format)
@@ -139,8 +137,8 @@ def test_get_entry(language, entry_id, format, entrypoint, secret_key):
         (model.Language.English, "happy_1", model.Format.JSON),
     ],
 )
-def test_get_pronunciation(language, entry_id, format, entrypoint, secret_key):
-    response = api.get_pronunciation(
+def test_get_pronunciations(language, entry_id, format, entrypoint, secret_key):
+    response = api.get_pronunciations(
         entrypoint, secret_key, language, entry_id, format=format
     )
     assert response.status_code == 200

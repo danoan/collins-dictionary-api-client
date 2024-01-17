@@ -4,7 +4,7 @@ import requests
 from typing import Optional
 
 
-def get_search(
+def search(
     entrypoint: str,
     secret_key: str,
     language: model.Language,
@@ -28,7 +28,7 @@ def get_search(
     )
 
 
-def get_did_you_mean(
+def did_you_mean(
     entrypoint: str,
     secret_key: str,
     language: model.Language,
@@ -95,7 +95,7 @@ def get_entry(
     )
 
 
-def get_pronunciation(
+def get_pronunciations(
     entrypoint: str,
     secret_key: str,
     language: model.Language,
