@@ -1,3 +1,6 @@
+"""
+Client to the Collins dictionary API.
+"""
 from danoan.dictionaries.collins.core import model
 
 import requests

@@ -24,9 +24,9 @@ Reference guides
 ================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   reference/
+   api
 
 
 Explanation
@@ -36,11 +36,3 @@ Explanation
    :maxdepth: 2
 
    design-and-architecture
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

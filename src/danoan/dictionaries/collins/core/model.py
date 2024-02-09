@@ -1,3 +1,6 @@
+"""
+Model classes for the collins.core package.
+"""
 from enum import Enum
 
 
