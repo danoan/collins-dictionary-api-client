@@ -48,6 +48,7 @@ def entrypoint(pytestconfig):
     return pytestconfig.getoption("entrypoint", skip=True)
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, word, format",
     [
@@ -68,6 +69,7 @@ def test_search(language, word, format, entrypoint, secret_key):
     assert len(str(adapter.get_field("results")).strip()) > 0
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, word, format",
     [
@@ -88,6 +90,7 @@ def test_did_you_mean(language, word, format, entrypoint, secret_key):
     assert len(str(adapter.get_field("suggestions")).strip()) > 0
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, word, format",
     [
@@ -110,6 +113,7 @@ def test_best_matching(language, word, format, entrypoint, secret_key):
     assert len(str(adapter.get_field("entryLabel")).strip()) > 0
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, entry_id, format",
     [
@@ -130,6 +134,7 @@ def test_get_entry(language, entry_id, format, entrypoint, secret_key):
     assert len(str(adapter.get_field("entryLabel")).strip()) > 0
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, entry_id, format",
     [
@@ -158,6 +163,7 @@ def test_get_pronunciations(language, entry_id, format, entrypoint, secret_key):
     assert len(str(adapter.get_field("pronunciationUrl")).strip()) > 0
 
 
+@pytest.mark.api
 @pytest.mark.parametrize(
     "language, entry_id, format",
     [
