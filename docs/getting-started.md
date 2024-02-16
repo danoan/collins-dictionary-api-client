@@ -11,10 +11,10 @@ Command Line Interface and python library to make requests to the [Collins dicti
 $ collins-dictionary-api-client --secret-key <SECRET_KEY> search garden
 {"resultNumber":69,"results":[{"entryLabel":"garden","entryUrl":"http://localhost/api/v1/dictionaries/english/entries/garden_1","entryId":"garden_1"}..."
 
-Type `collins-dictionary-api-client --help` to see all available options.
 ```
 
-(getting-started/methods-available)=
+Type `collins-dictionary-api-client --help` to see all available options.
+
 ## Methods available
 
 The following methods are implemented in the client.
