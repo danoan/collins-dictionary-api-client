@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Design and Architecture" href="design-and-architecture.html" />
+    <link rel="next" title="How to use the python library" href="how-to/use-python-library.html" />
     <link rel="prev" title="Welcome to Collins Dictionary Api Client’s documentation!" href="index.html" /> 
 </head>
 
@@ -50,14 +50,25 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started with Collins Dictionary Api Client</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods-available">Methods available</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#search">search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#did-you-mean">did_you_mean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-best-matching">get_best_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-entry">get_entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-pronunciations">get_pronunciations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-nearby-entries">get_nearby_entries</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="design-and-architecture.html">Design and Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how-to/use-python-library.html">How to use the python library</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
         </div>
@@ -86,12 +97,223 @@
              
   <section id="getting-started-with-collins-dictionary-api-client">
 <h1>Getting started with Collins Dictionary Api Client<a class="headerlink" href="#getting-started-with-collins-dictionary-api-client" title="Link to this heading"></a></h1>
-<p>Client to the Collins dictionary API</p>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
-</section>
+<p>Command Line Interface and python library to make requests to the <a class="reference external" href="https://www.collinsdictionary.com/collins-api">Collins dictionary API</a>.</p>
+<p>Link to <a class="reference external" href="https://drive.google.com/file/d/1CmAR_eCxRCrkIShKRo4f2DrvQ-d-S7Og/view?usp=sharing">API documentation</a></p>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>collins-dictionary-api-client<span class="w"> </span>--secret-key<span class="w"> </span>&lt;SECRET_KEY&gt;<span class="w"> </span>search<span class="w"> </span>garden
+<span class="o">{</span><span class="s2">&quot;resultNumber&quot;</span>:69,<span class="s2">&quot;results&quot;</span>:<span class="o">[{</span><span class="s2">&quot;entryLabel&quot;</span>:<span class="s2">&quot;garden&quot;</span>,<span class="s2">&quot;entryUrl&quot;</span>:<span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/garden_1&quot;</span>,<span class="s2">&quot;entryId&quot;</span>:<span class="s2">&quot;garden_1&quot;</span><span class="o">}</span>...<span class="s2">&quot;</span>
+
+<span class="s2">Type `collins-dictionary-api-client --help` to see all available options.</span>
+</pre></div>
+</div>
+</section>
+<section id="methods-available">
+<span id="getting-started-methods-available"></span><h2>Methods available<a class="headerlink" href="#methods-available" title="Link to this heading"></a></h2>
+<p>The following methods are implemented in the client.</p>
+<section id="search">
+<h3>search<a class="headerlink" href="#search" title="Link to this heading"></a></h3>
+<p>Get a list of entry ids corresponding to the search term.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;resultNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitim_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim_1&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;currentPageIndex&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pageNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="did-you-mean">
+<h3>did_you_mean<a class="headerlink" href="#did-you-mean" title="Link to this heading"></a></h3>
+<p>Get a list of suggestions corresponding to the input word.</p>
+<p>The suggested words are close to the input word in a lexicographic sense.
+For example, share a good portion of the prefix or the suffix.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;searchTerm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;legit&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimist&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimize&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimate&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;flexitime&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimizer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimator&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legitimiser&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;gregatim&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;legalism&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-best-matching">
+<h3>get_best_matching<a class="headerlink" href="#get-best-matching" title="Link to this heading"></a></h3>
+<p>Get the metadata of the first entry found for the searched word.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;topics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryContent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;div class=\&quot;entry_container\&quot;&gt;&lt;div class=\&quot;entry lang_en-gb\&quot; id=\&quot;legitim_1\&quot;&gt;&lt;span class=\&quot;inline\&quot;&gt;&lt;h1 class=\&quot;hwd\&quot;&gt;legitim&lt;\/h1&gt;&lt;span&gt; (&lt;\/span&gt;&lt;span class=\&quot;pron\&quot; type=\&quot;\&quot;&gt;ˈlɛdʒɪtɪm&lt;\/span&gt;&lt;span&gt;)&lt;\/span&gt;&lt;\/span&gt;&lt;div class=\&quot;hom\&quot; id=\&quot;legitim_1.1\&quot;&gt;&lt;span class=\&quot;gramGrp\&quot;&gt;&lt;span&gt;   &lt;\/span&gt;&lt;span class=\&quot;pos\&quot;&gt;noun&lt;\/span&gt;&lt;\/span&gt;&lt;div class=\&quot;sense\&quot;&gt;&lt;span&gt;     &lt;\/span&gt;&lt;span class=\&quot;lbl\&quot;&gt;Scots law&lt;\/span&gt;&lt;span&gt; &lt;\/span&gt;&lt;span class=\&quot;def\&quot;&gt;the part of a person&#39;s moveable estate that is inherited by his or her children on that person&#39;s death&lt;\/span&gt;&lt;\/div&gt;&lt;!-- End of DIV sense--&gt;&lt;\/div&gt;&lt;!-- End of DIV hom--&gt;&lt;\/div&gt;&lt;!-- End of DIV entry lang_en-gb--&gt;&lt;\/div&gt;&lt;!-- End of DIV entry_container--&gt;\n&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitim_1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;html&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim_1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-entry">
+<h3>get_entry<a class="headerlink" href="#get-entry" title="Link to this heading"></a></h3>
+<p>Get the first entry found for the searched word.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;topics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legit&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryContent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;div class=\&quot;entry_container\&quot;&gt;&lt;div class=\&quot;entry lang_en-gb\&quot; id=\&quot;legit_1\&quot;&gt;&lt;span class=\&quot;inline\&quot;&gt;&lt;h1 class=\&quot;hwd\&quot;&gt;legit&lt;\/h1&gt;&lt;span&gt; (&lt;\/span&gt;&lt;span class=\&quot;pron\&quot; type=\&quot;\&quot;&gt;lɪˈdʒɪt&lt;a href=\&quot;#\&quot; class=\&quot;playback\&quot;&gt;&lt;img src=\&quot;https://api.collinsdictionary.com/external/images/redspeaker.gif?version=2016-11-09-0913\&quot; alt=\&quot;Pronunciation for legit\&quot; class=\&quot;sound\&quot; title=\&quot;Pronunciation for legit\&quot; style=\&quot;cursor: pointer\&quot;/&gt;&lt;\/a&gt;&lt;audio type=\&quot;pronunciation\&quot; title=\&quot;legit\&quot;&gt;&lt;source type=\&quot;audio/mpeg\&quot; src=\&quot;https://api.collinsdictionary.com/media/sounds/sounds/e/en_/en_gb/en_gb_legit.mp3\&quot;/&gt;Your browser does not support HTML5 audio.&lt;\/audio&gt;&lt;\/span&gt;&lt;span&gt;)&lt;\/span&gt;&lt;span class=\&quot;lbl\&quot;&gt;&lt;span&gt; &lt;\/span&gt;slang&lt;\/span&gt;&lt;\/span&gt;&lt;div class=\&quot;hom\&quot; id=\&quot;legit_1.1\&quot;&gt;&lt;span class=\&quot;gramGrp\&quot;&gt;&lt;span&gt;   &lt;\/span&gt;&lt;span class=\&quot;pos\&quot;&gt;adjective&lt;\/span&gt;&lt;\/span&gt;&lt;div class=\&quot;sense\&quot;&gt;&lt;span class=\&quot;sensenum\&quot;&gt;     1 &lt;\/span&gt;&lt;span class=\&quot;xr\&quot;&gt;&lt;span class=\&quot;lbl\&quot;&gt;short for&lt;\/span&gt;&lt;span&gt; &lt;\/span&gt;\n                \n        \t\t&lt;a data-resource=\&quot;english\&quot; data-topic=\&quot;legitimate_1\&quot; href=\&quot;\&quot;&gt;legitimate&lt;\/a&gt;&lt;\/span&gt;&lt;\/div&gt;&lt;!-- End of DIV sense--&gt;&lt;\/div&gt;&lt;!-- End of DIV hom--&gt;&lt;div class=\&quot;hom\&quot; id=\&quot;legit_1.2\&quot;&gt;&lt;span&gt; &lt;br/&gt;▷ &lt;\/span&gt;&lt;span class=\&quot;gramGrp\&quot;&gt;&lt;span class=\&quot;pos\&quot;&gt;noun&lt;\/span&gt;&lt;\/span&gt;&lt;div class=\&quot;sense\&quot;&gt;&lt;span class=\&quot;sensenum\&quot;&gt;     2 &lt;\/span&gt;&lt;span class=\&quot;def\&quot;&gt;legitimate or professionally respectable drama&lt;\/span&gt;&lt;\/div&gt;&lt;!-- End of DIV sense--&gt;&lt;\/div&gt;&lt;!-- End of DIV hom--&gt;&lt;\/div&gt;&lt;!-- End of DIV entry lang_en-gb--&gt;&lt;\/div&gt;&lt;!-- End of DIV entry_container--&gt;\n&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legit_1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;html&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legit_1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-pronunciations">
+<h3>get_pronunciations<a class="headerlink" href="#get-pronunciations" title="Link to this heading"></a></h3>
+<p>Get a list of pronunciations.</p>
+<p>Each pronunciation entry contains a URL to a mp3 file.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;pronunciationUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.collinsdictionary.com/media/sounds/sounds/e/en_/en_gb/en_gb_legit.mp3&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legit_1&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="get-nearby-entries">
+<h3>get_nearby_entries<a class="headerlink" href="#get-nearby-entries" title="Link to this heading"></a></h3>
+<p>Get a list of entries related to the input word.</p>
+<p>The returned words or expressions are in the same semantic scope of the input word.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;nearbyFollowingEntries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitim_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitim_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimate&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimate_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimate_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimator&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimator_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimator_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimiser&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimiser_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimiser_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimist&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimist_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimist_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimistic&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimistic_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimistic_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimize&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimize_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimize_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimizer&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legitimizer_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legitimizer_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legless&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legless_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legless_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;leglessness&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/leglessness_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;leglessness_1&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;dictionaryCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;english&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;nearbyPrecedingEntries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legionnaire&#39;s disease&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legionnaires-disease_1_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legionnaires-disease_1_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislate&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislate_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislate_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislation&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislation_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislation_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislative_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative assembly&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislative-assembly_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative-assembly_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative council&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislative-council_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislative-council_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislator&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislator_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislator_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislatorial&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislatorial_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislatorial_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislature&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legislature_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legislature_1&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;entryLabel&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legist&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost/api/v1/dictionaries/english/entries/legist_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legist_1&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;entryId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;legit_1&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
@@ -104,7 +326,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Collins Dictionary Api Client’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="design-and-architecture.html" class="btn btn-neutral float-right" title="Design and Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="how-to/use-python-library.html" class="btn btn-neutral float-right" title="How to use the python library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

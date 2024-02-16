@@ -1,7 +1,7 @@
 Welcome to Collins Dictionary Api Client's documentation!
 ==========================================
 
-Client to the Collins dictionary API
+Command Line Interface and python library to make requests to the `Collins dictionary API <https://www.collinsdictionary.com/collins-api>`_.
 
 Start here
 ================
@@ -17,30 +17,13 @@ How-to guides
 .. toctree::
    :maxdepth: 1
 
-   how-to/
+   how-to/use-python-library
 
 
 Reference guides
 ================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   reference/
-
-
-Explanation
-===========
-
-.. toctree::
-   :maxdepth: 2
-
-   design-and-architecture
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   api
