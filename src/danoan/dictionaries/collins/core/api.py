@@ -1,3 +1,6 @@
+"""
+Client to the Collins dictionary API.
+"""
 from danoan.dictionaries.collins.core import model
 
 import requests
@@ -15,7 +18,7 @@ def search(
     **kargs,
 ) -> requests.Response:
     """
-    Get a list of results corresponding to the search term.
+    Get a list of entry ids corresponding to the search term.
     """
     headers = {
         "Host": "localhost",
@@ -39,6 +42,9 @@ def did_you_mean(
 ) -> requests.Response:
     """
     Get a list of suggestions corresponding to the input word.
+
+    The suggested words are close to the input word in a lexicographic sense.
+    For example, share a good portion of the prefix or the suffix.
     """
     headers = {
         "Host": "localhost",
@@ -60,7 +66,7 @@ def get_best_matching(
     **kargs,
 ) -> requests.Response:
     """
-    Get the first result found for the searched word.
+    Get the metadata of the first entry found for the searched word.
     """
     headers = {
         "Host": "localhost",
@@ -82,7 +88,7 @@ def get_entry(
     **kargs,
 ) -> requests.Response:
     """
-    Return metadata corresponding to an entry id.
+    Get the metadata corresponding to an entry id.
     """
     headers = {
         "Host": "localhost",
@@ -137,7 +143,9 @@ def get_nearby_entries(
     **kargs,
 ) -> requests.Response:
     """
-    Get a list of entries similar (synonymous or related) to the input word.
+    Get a list of entries related to the input word.
+
+    The returned words or expressions are in the same semantic scope of the input word.
     """
     headers = {
         "Host": "localhost",

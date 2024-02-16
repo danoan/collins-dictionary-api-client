@@ -34,6 +34,7 @@ author = "Daniel Martins Antunes"
 extensions = [
     "sphinx.ext.autodoc",  # Collect docstrings
     "sphinx.ext.autodoc.typehints",  # Use typehints
+    "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",  # NumPy and Google docstring format
     "sphinx.ext.viewcode",  # Source code link at function, class, module documentation
     "sphinx_rtd_theme",  # Read the docs theme,

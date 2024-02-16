@@ -51,6 +51,9 @@ testpaths = [
 pythonpath = [
 "test" # Needed in order to import conftest.py in test modules
 ]
+markers = [
+    "api: these tests make api calls."
+]
 
 # -------------------- code coverage --------------------
 # In order to make coverage read from pyproject.toml
@@ -76,7 +79,8 @@ source = [
 show_missing = true
 skip_covered = true
 omit = []
-fail_under = 90
+# Commenting this because most tests are integration tests and are not executed that often
+# fail_under = 90
 
 
 # -------------------- type checking --------------------
