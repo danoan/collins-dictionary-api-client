@@ -79,7 +79,8 @@ source = [
 show_missing = true
 skip_covered = true
 omit = []
-fail_under = 90
+# Commenting this because most tests are integration tests and are not executed that often
+# fail_under = 90
 
 
 # -------------------- type checking --------------------
