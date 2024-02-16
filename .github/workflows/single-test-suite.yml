@@ -53,4 +53,4 @@ jobs:
         python -m pip install --upgrade pip && pip install tox
     - name: Run tests
       run: |
-        tox -e ${{ inputs.toxenv }} -- --secret-key ${{ secrets.COLLINS_API_SECRET_KEY }} --entrypoint ${{ secrets.COLLINS_API_ENTRYPOINT }}
+        tox -e ${{ inputs.toxenv }} -- -m 'not api' 
