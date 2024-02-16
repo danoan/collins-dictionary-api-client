@@ -6,7 +6,7 @@ from danoan.dictionaries.collins.core import api
 from danoan.dictionaries.collins.core import model
 
 
-def main():
+def get_parser():
     parser = argparse.ArgumentParser(
         description="CLI to the Collins API.",
         formatter_class=argparse.RawTextHelpFormatter,
@@ -90,6 +90,11 @@ def main():
     parser_get_nearby_entries.add_argument("entry_id")
     parser_get_nearby_entries.set_defaults(func=api.get_nearby_entries)
 
+    return parser
+
+
+def main():
+    parser = get_parser()
     args = parser.parse_args()
 
     if "func" in args:
