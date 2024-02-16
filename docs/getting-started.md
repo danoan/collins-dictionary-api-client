@@ -2,7 +2,8 @@
 
 Command Line Interface and python library to make requests to the [Collins dictionary API](https://www.collinsdictionary.com/collins-api).
 
-Link to [API documentation](https://drive.google.com/file/d/1CmAR_eCxRCrkIShKRo4f2DrvQ-d-S7Og/view?usp=sharing)
+- [Read the docs](https://danoan.github.io/collins-dictionary-api-client/)
+- Link to [Collin API documentation](https://drive.google.com/file/d/1CmAR_eCxRCrkIShKRo4f2DrvQ-d-S7Og/view?usp=sharing)
 
 ## Examples
 
