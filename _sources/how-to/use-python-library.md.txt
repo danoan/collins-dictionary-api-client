@@ -6,7 +6,7 @@ imported in your projects.
 ## Installation
 
 ```bash
-pip install collins-dictionary-api
+$ pip install collins-dictionary-api-client
 ```
 
 To test the installation
