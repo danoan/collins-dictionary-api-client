@@ -17,14 +17,13 @@ classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = ["beautifulsoup4","lxml","requests"]
 
 [project.urls]
-Documentation = "https://github.com/danoan/collins-dictionary-api-client#readme"
-Issues = "https://github.com/danoan/collins-dictionary-api-client"
+Documentation = "https://danoan.github.io/collins-dictionary-api-client"
+Issues = "https://github.com/danoan/collins-dictionary-api-client/issues"
 Source = "https://github.com/danoan/collins-dictionary-api-client"
 
 [project.scripts]
