@@ -2,6 +2,7 @@ name: Integration test
 
 on:
   workflow_dispatch:
+  workflow_call:
   schedule:
     - cron: '0 0 16 * *'
 
