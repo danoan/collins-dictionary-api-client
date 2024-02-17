@@ -234,4 +234,4 @@ The returned words or expressions are in the same semantic scope of the input wo
 
 ## Contributing
 
-Please reference to our [contribution](http://github.com/danoan/collins-dictionary-api-client/docs/contributing.md) and [code-of-conduct]((http://github.com/danoan/collins-dictionary-api-client/docs/code-of-conduct.md)) guidelines.
+Please reference to our [contribution](https://danoan.github.io/collins-dictionary-api-client/contributing.html) and [code-of-conduct](https://danoan.github.io/collins-dictionary-api-client/code-of-conduct.html)
